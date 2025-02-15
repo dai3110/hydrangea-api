@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { PageRouting } from '~/types/app';
-import { auth } from '~/utils/auth';
+import { Request, Response } from 'express'
+import { PageRouting } from '~/types/app'
+import { auth } from '~/utils/auth'
 
 export default {
   async get(req: Request, res: Response) {
@@ -10,9 +10,7 @@ export default {
       return
     }
     res.render('admin/index', {
-      data: {
-        user: authUser?.Username
-      }
+      user: authUser?.Username
     })
   }
 } as PageRouting

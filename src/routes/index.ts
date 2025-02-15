@@ -5,8 +5,7 @@ import 'dotenv/config'
 export default {
   get(req: Request, res: Response, next: NextFunction) {
     res.render('index', {
-      now: Date.now(),
-      hoge: process.env['hoge']
+      now: Date.now()
     })
   }
 } as PageRouting

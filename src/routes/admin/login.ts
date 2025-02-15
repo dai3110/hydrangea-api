@@ -9,7 +9,7 @@ export default {
       res.redirect('/admin')
       return
     }
-    res.render('admin/login', { data: null })
+    res.render('admin/login')
   },
   async post(req: Request, res: Response) {
     const token = await auth.login(req.body.user, req.body.password)
@@ -19,12 +19,10 @@ export default {
       return
     }
     res.render('admin/login', {
-      data: {
-        input: {
-          user: req.body.user
-        },
-        error: 'ログインに失敗しました'
-      }
+      input: {
+        user: req.body.user
+      },
+      error: 'ログインに失敗しました'
     })
   }
 } as PageRouting

@@ -4,9 +4,9 @@
   "description": "notyet",
   "main": "index.js",
   "scripts": {
-    "dist": "node local_task/duplenv && node local_task/clean && tsc --project . && cp package.json dist && cp -r src/public dist/public && cp -r src/views dist/views && node local_task/move && node local_task/reqpath",
-    "build": "npm run dist && cd dist && npm i --production && zip -r ../product.zip *",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dist": "node local_task/clean && tsc --project . && cp package.json dist && cp -r src/public dist/public && node local_task/move && node local_task/reqpath",
+    "build": "node local_task/duplenv && npm run dist && cd dist && npm i --production && zip -r ../product.zip *",
+    "dev": "npm run dist && node dist/dev"
   },
   "repository": {
     "type": "git",
@@ -31,13 +31,15 @@
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "glob": "^11.0.1",
-    "jsonwebtoken": "^9.0.2"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.147",
     "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.0",
-    "@types/jsonwebtoken": "^9.0.8",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "prettier": "^3.5.0",
     "typescript": "^5.7.3"
   }

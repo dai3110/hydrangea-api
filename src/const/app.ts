@@ -14,3 +14,5 @@ export const appPaths = {
 export const appExt = {
   express: '.js',
 } as const
+
+export const htmlDocType = '<!doctype html>'
