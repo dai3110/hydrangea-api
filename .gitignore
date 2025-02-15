@@ -1,0 +1,5 @@
+product.zip
+node_modules/
+dist/
+.env*.local
+.env

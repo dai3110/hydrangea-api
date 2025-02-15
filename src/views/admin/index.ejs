@@ -1,0 +1,11 @@
+<%- include('../parts/head') %>
+<div>
+  <a href="/admin/logout">logout</a>
+</div>
+<main>
+  <% if (data?.error) { %>
+  <p><%= data.error %></p>
+  <% } %>
+  <%= data.user %> 
+</main>
+<%- include('../parts/foot') %>
