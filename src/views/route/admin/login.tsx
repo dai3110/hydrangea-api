@@ -1,5 +1,5 @@
 import React from 'react'
-import RootLayout from '~/components/layout/root'
+import RootLayout from '~/views/components/layout/root'
 
 const Page = (props: {
   input?: {

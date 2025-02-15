@@ -12,7 +12,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(nodepath.resolve(__dirname, 'public')))
-app.set('views', nodepath.resolve(__dirname, 'views'))
+app.set('views', nodepath.resolve(__dirname, 'views', 'route'))
 app.set('view engine', 'js')
 
 app.engine('js', createEngine());

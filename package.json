@@ -4,7 +4,8 @@
   "description": "notyet",
   "main": "index.js",
   "scripts": {
-    "dist": "node local_task/clean && tsc --project . && cp package.json dist && cp -r src/public dist/public && node local_task/move && node local_task/reqpath",
+    "dist": "node local_task/clean && tsc --project . && cp package.json dist && node local_task/sass && node local_task/move && node local_task/reqpath",
+    "distback": "node local_task/clean && tsc --project . && cp package.json dist && cp -r src/public dist/public && node local_task/move && node local_task/reqpath",
     "build": "node local_task/duplenv && npm run dist && cd dist && npm i --production && zip -r ../product.zip *",
     "dev": "npm run dist && node dist/dev"
   },
@@ -42,6 +43,7 @@
     "@types/express": "^5.0.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "dart-sass": "^1.25.0",
     "prettier": "^3.5.0",
     "typescript": "^5.7.3"
   }
