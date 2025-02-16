@@ -8,7 +8,7 @@ export default {
     role.admin.read,
     async (req: Request, res: Response) => {
       const authUser = await auth.currentUser(req, res)
-      res.render('admin/index', {
+      res.render('admin/article/index', {
         user: authUser?.Username
       })
     },

@@ -1,23 +1,26 @@
-import { CognitoIdentityProvider } from '@aws-sdk/client-cognito-identity-provider';
-import { Request, Response } from "express";
-import { env } from '~/const/env';
+import { CognitoIdentityProvider } from '@aws-sdk/client-cognito-identity-provider'
+import { NextFunction, Request, Response } from 'express'
+import { env } from '~/const/env'
 import { createHmac } from 'crypto'
+import { role } from '~/const/role'
+import { RoleDefine } from '~/types/auth'
+import { RequestHandler } from '~/types/app'
 
 const cognito = new CognitoIdentityProvider({ region: env.cognitoRegion })
 const clientId = env.cognitoClientId
 
 const generateSecretHash = (username: string) => {
-  const hasher = createHmac('sha256', env.cognitoClientSecret);
-  hasher.update(`${username}${clientId}`);
-  return hasher.digest('base64');
+  const hasher = createHmac('sha256', env.cognitoClientSecret)
+  hasher.update(`${username}${clientId}`)
+  return hasher.digest('base64')
 }
 
 export const sessionToken = {
   set(res: Response, token: string) {
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true,
-    });
+      secure: true
+    })
   },
   get(req: Request) {
     return req.cookies['token']
@@ -39,7 +42,7 @@ export const auth = {
           SECRET_HASH: generateSecretHash(username)
         }
       })
-      .then((res) => (res.AuthenticationResult?.AccessToken))
+      .then((res) => res.AuthenticationResult?.AccessToken)
       .catch((e) => null)
   },
   logout(res: Response) {
@@ -56,3 +59,21 @@ export const auth = {
     })
   }
 }
+
+export const authRequestHandler =
+  (roledef: RoleDefine, requestHandler: RequestHandler, failurCallback: RequestHandler) =>
+  async (req: Request, res: Response, next?: NextFunction) => {
+    type Handler = (req: Request, res: Response, next: NextFunction) => void | Promise<void>
+    type NextlessHandler = (req: Request, res: Response) => void | Promise<void>
+    const user = await auth.currentUser(req, res)
+    const userAttr =
+      user?.UserAttributes?.find((attr) => attr.Name === roledef.key)?.Value ?? -1
+
+    if (!roledef.values.includes(Number(userAttr))) {
+      next && (await (failurCallback as Handler)(req, res, next))
+      !next && (await (failurCallback as NextlessHandler)(req, res))
+      return
+    }
+    next && (await (requestHandler as Handler)(req, res, next))
+    !next && (await (requestHandler as NextlessHandler)(req, res))
+  }

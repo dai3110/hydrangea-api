@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "dist": "node local_task/clean && tsc --project . && cp package.json dist && node local_task/sass && node local_task/move && node local_task/reqpath",
-    "distback": "node local_task/clean && tsc --project . && cp package.json dist && cp -r src/public dist/public && node local_task/move && node local_task/reqpath",
     "build": "node local_task/duplenv && npm run dist && cd dist && npm i --production && zip -r ../product.zip *",
     "dev": "npm run dist && node dist/dev"
   },
@@ -25,18 +24,18 @@
   },
   "homepage": "https://github.com/dai3110/hydrangea-api#readme",
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.744.0",
     "@vendia/serverless-express": "^4.12.6",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
-    "ejs": "^3.1.10",
     "express": "^4.21.2",
     "glob": "^11.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.744.0",
     "@aws-sdk/client-dynamodb": "^3.749.0",
+    "@aws-sdk/client-s3": "^3.749.0",
     "@aws-sdk/lib-dynamodb": "^3.749.0",
     "@types/aws-lambda": "^8.10.147",
     "@types/cookie-parser": "^1.4.8",

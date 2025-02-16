@@ -1,16 +1,19 @@
 import { Request, Response } from 'express'
+import { role } from '~/const/role'
 import { PageRouting } from '~/types/app'
-import { auth, sessionToken } from '~/utils/auth'
+import { auth, authRequestHandler, sessionToken } from '~/utils/auth'
 
 export default {
-  async get(req: Request, res: Response) {
-    const authUser = await auth.currentUser(req, res)
-    if (authUser) {
-      res.redirect('/admin')
-      return
+  get: authRequestHandler(
+    role.admin.read,
+    (req: Request, res: Response) => {
+      res.redirect('/admin/index')
+    },
+    async (req: Request, res: Response) => {
+      const authUser = await auth.currentUser(req, res)
+      res.render('admin/login')
     }
-    res.render('admin/login')
-  },
+  ),
   async post(req: Request, res: Response) {
     const token = await auth.login(req.body.user, req.body.password)
     if (token) {
