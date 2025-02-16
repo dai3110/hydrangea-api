@@ -9,6 +9,9 @@ const Page = (props: {
       <a href="/admin/logout">logout</a>
     </div>
     <div>{props.user}</div>
+    <div>
+      <a href="/admin/photo">photo manager</a>
+    </div>
   </RootLayout>
 );
 
