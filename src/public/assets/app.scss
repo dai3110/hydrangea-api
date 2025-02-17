@@ -1,11 +1,3 @@
 @use 'sass/reset';
-
-html {
-  font-size: 62.5%;
-}
-
-body {
-  color: lighten(#000, 10%);
-  font-size: 1.5rem;
-  padding: 1.6rem;
-}
+@use 'sass/base';
+@use 'sass/form';

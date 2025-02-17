@@ -7,7 +7,12 @@ export type RequestHandler =
   | ((req: Request, res: Response) => void | Promise<void>)
   | ((req: Request, res: Response, next: NextFunction) => void | Promise<void>)
 
+export type RequestHandlerDefine = {
+  upload?: string
+  handler: RequestHandler
+}
+
 export type PageRouting = {
-  [method in PageRouteMethodType]?: RequestHandler
+  [method in PageRouteMethodType]?: RequestHandler | RequestHandlerDefine
 }
 

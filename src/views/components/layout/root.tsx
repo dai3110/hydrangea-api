@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RootLayout = (props: { children: React.ReactNode }) => (
-  <html lang="ja">
+  <html lang="en">
     <head>
       <meta charSet="utf-8" />
       <link rel="stylesheet" href="/assets/app.css" />

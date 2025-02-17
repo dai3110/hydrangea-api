@@ -3,25 +3,32 @@ import express from 'express'
 import { globSync } from 'glob'
 import nodepath from 'path'
 import { appExt, appPaths, pagesRouteMethods } from '~/const/app'
-import { applyRouteMethod } from '~/utils/app'
+import { applyRouteMethodFactory } from '~/utils/app'
 import { createEngine } from '~/utils/engin'
+import { uploadAcceptor } from '~/utils/upload'
 
 export const app = express()
 
 app.use(cookieParser())
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ limit: '10mb', extended: false }))
 app.use(express.static(nodepath.resolve(__dirname, 'public')))
 app.set('views', nodepath.resolve(__dirname, 'views', 'route'))
 app.set('view engine', 'js')
+app.engine('js', createEngine())
 
-app.engine('js', createEngine());
+const applier = applyRouteMethodFactory({
+  image: uploadAcceptor('image/png', 'image/jpeg').array('image')
+})
 
-const applyResult = [globSync(`${appPaths.routes}/**/*${appExt.express}`)]
+const result = [globSync(`${appPaths.routes}/**/*${appExt.express}`)]
   .flat()
   .map((path) =>
-    pagesRouteMethods.map((method) => applyRouteMethod(app, method, path)).every((r) => r)
+    pagesRouteMethods
+      .map((method) => applier(app, method, path, appPaths.routes))
+      .every((r) => r)
   )
-if (applyResult.some((r) => !r)) {
+
+if (result.some((r) => !r)) {
   console.log('fail to apply route')
 }
