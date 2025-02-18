@@ -18,6 +18,29 @@ export const db = {
               return null
             })
         )?.Item
+      },
+      async put(item: { [key: string]: string | number }) {
+        return await client
+          .put({
+            TableName: table,
+            Item: item
+          })
+          .catch((e) => {
+            console.log(e)
+            return null
+          })
+      },
+      async select() {
+        return (
+          await client
+            .scan({
+              TableName: table
+            })
+            .catch((e) => {
+              console.log(e)
+              return null
+            })
+        )?.Items
       }
     }
   }
