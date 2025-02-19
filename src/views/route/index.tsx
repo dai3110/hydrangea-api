@@ -9,7 +9,6 @@ const Page = (props: {
   <RootLayout>
     <div>Hi!</div>
     <div>now: {props.now}</div>
-    <div>count: {props.count}</div>
   </RootLayout>
 );
 

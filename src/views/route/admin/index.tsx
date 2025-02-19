@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
+import { bucket } from '~/const/env';
 import RootLayout from '~/views/components/layout/root';
 
 const Page = (props: {
   user: string
-  data: {
+  article: {
     id: number
     image: string
   }[]
@@ -16,13 +17,13 @@ const Page = (props: {
     <div>
       <a href="/admin/photo/">add photo</a>
     </div>
-    {props.data && (
+    {props.article && (
       <dl>
-        {props.data.map((d, i) => (
+        {props.article.map((d, i) => (
           <Fragment key={i}>
             <dt>{d.id}: {d.image}</dt>
             <dd>
-              <img src={`/transfer/image/${d.image}`} style={{maxWidth: '240px'}} />
+              <img src={`${bucket.photoURL}/${d.image}`} style={{maxWidth: '240px'}} />
             </dd>
           </Fragment>
         ))}

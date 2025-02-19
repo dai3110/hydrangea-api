@@ -9,10 +9,10 @@ export const env = {
 } as const
 
 export const dbtable = {
-  app: process.env['TABLE_APP_DATA'] as string,
-  article: process.env['TABLE_ARTICLE_DATA'] as string
+  view: process.env['TABLE_CONTENT_VIEW'] as string
 }
 
 export const bucket = {
-  photo: process.env['S3_PHOTO_BUCKET'] as string
+  photo: process.env['S3_PHOTO_BUCKET'] as string,
+  photoURL: process.env['S3_PHOTO_BASEURL'] as string
 }

@@ -1,14 +1,15 @@
 import { DynamoDB, DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb'
+import { PrismaClient } from '@prisma/client'
 
-const client = DynamoDBDocument.from(new DynamoDB())
+const dynamoClient = DynamoDBDocument.from(new DynamoDB())
 
-export const db = {
+export const dynamodb = {
   from(table: string) {
     return {
       async get(condition: { [key: string]: string | number }) {
         return (
-          await client
+          await dynamoClient
             .get({
               TableName: table,
               Key: condition
@@ -20,7 +21,7 @@ export const db = {
         )?.Item
       },
       async put(item: { [key: string]: string | number }) {
-        return await client
+        return await dynamoClient
           .put({
             TableName: table,
             Item: item
@@ -32,7 +33,7 @@ export const db = {
       },
       async select() {
         return (
-          await client
+          await dynamoClient
             .scan({
               TableName: table
             })
@@ -45,3 +46,5 @@ export const db = {
     }
   }
 }
+
+export const prisma = new PrismaClient()

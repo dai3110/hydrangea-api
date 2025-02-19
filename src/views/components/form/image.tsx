@@ -12,6 +12,7 @@ const Component = (props: {
   className?: string
   caption?: string
   accept?: string
+  multiple?: boolean
 }) => {
   return (
     <form
@@ -20,8 +21,10 @@ const Component = (props: {
       encType="multipart/form-data"
       className={csscat(props.className, 'image-form')}
     >
-      <input type="file" name={props.name}multiple />
-      <button type="submit" data-submit-button>submit</button>
+      <input type="file" name={props.name} {...(props.multiple ? { multiple: true } : {})} />
+      <button type="submit" data-submit-button>
+        submit
+      </button>
     </form>
   )
 }
