@@ -4,6 +4,7 @@ import { dbtable } from '~/const/env'
 import { role } from '~/const/role'
 import { articleData } from '~/repository/articles'
 import { PageRouting } from '~/types/app'
+import { loginPath } from '~/utils/app'
 import { auth, authRequestHandler } from '~/utils/auth'
 import { dynamodb } from '~/utils/database'
 
@@ -19,7 +20,7 @@ export default {
       
     },
     (req: Request, res: Response) => {
-      res.redirect('/admin/login')
+      res.redirect(loginPath('/admin/login'))
     }
   )
 } as PageRouting

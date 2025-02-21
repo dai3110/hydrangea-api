@@ -1,5 +1,6 @@
 import express from 'express'
-import { appExt, pathOmits } from '~/const/app'
+import nodepath from 'path'
+import { appExt, appLoginPath, pathOmits, requestAppRootPath } from '~/const/app'
 import {
   PageRouteMethodType,
   PageRouting,
@@ -15,11 +16,13 @@ export const applyRouteMethodFactory =
     path: string,
     basePath: string
   ): boolean => {
-    const requestPath = path
-      .slice(basePath.length, -appExt.express.length)
-      .split('/')
-      .map((part) => (part.startsWith('$') ? `:${part.slice('$'.length)}` : part))
-      .join('/')
+    const requestPath = pathResolved(
+      path
+        .slice(basePath.length, -appExt.express.length)
+        .split('/')
+        .map((part) => (part.startsWith('$') ? `:${part.slice('$'.length)}` : part))
+        .join('/')
+    )
     const pageModule = require(path)?.default
     if (!pageModule) {
       return false
@@ -54,3 +57,14 @@ export const applyRouteMethodFactory =
 
     return true
   }
+
+export const pathResolved = (pathFromAppRoute: string) => {
+  return nodepath.resolve(
+    requestAppRootPath,
+    pathFromAppRoute.startsWith('/') ? pathFromAppRoute.slice('/'.length) : pathFromAppRoute
+  )
+}
+
+export const loginPath = (returnPath: string) => {
+  return `${appLoginPath}?returnpath=${encodeURIComponent(returnPath)}`
+}

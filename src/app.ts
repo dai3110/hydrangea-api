@@ -4,7 +4,7 @@ import { globSync } from 'glob'
 import nodepath from 'path'
 import { appExt, appPaths, pagesRouteMethods } from '~/const/app'
 import { applyRouteMethodFactory } from '~/utils/app'
-import { createEngine } from '~/utils/engin'
+import { createEngine } from '~/utils/engine'
 import { uploadAcceptor } from '~/utils/upload'
 
 export const app = express()

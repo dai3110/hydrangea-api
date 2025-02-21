@@ -2,14 +2,15 @@ import React from 'react'
 import RootLayout from '~/views/components/layout/root'
 import ImageForm from '~/views/components/form/image'
 import { bucket } from '~/const/env'
+import { pathResolved } from '~/utils/app'
 
 const Page = (props: { result: boolean, files: string[] }) => (
   <RootLayout>
     <div>
-      <a href="/admin/logout">logout</a>
+      <a href={pathResolved('/admin/logout')}>logout</a>
     </div>
     <ImageForm
-      action="/admin/photo/"
+      action={pathResolved('/admin/add/photo')}
       name="image"
       caption="Select an image file to upload and submit"
       accept=".jpg,.png"

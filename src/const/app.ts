@@ -11,6 +11,9 @@ export const appPaths = {
   views: nodepath.resolve(appRoot, 'views'),
 } as const
 
+export const requestAppRootPath = '/'
+export const appLoginPath = '/admin/login'
+
 export const appExt = {
   express: '.js',
 } as const

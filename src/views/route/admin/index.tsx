@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { bucket } from '~/const/env';
+import { pathResolved } from '~/utils/app';
 import RootLayout from '~/views/components/layout/root';
 
 const Page = (props: {
@@ -11,11 +12,11 @@ const Page = (props: {
 }) => (
   <RootLayout>
     <div>
-      <a href="/admin/logout">logout</a>
+      <a href={pathResolved('/admin/logout')}>logout</a>
     </div>
     <div>{props.user}</div>
     <div>
-      <a href="/admin/photo/">add photo</a>
+      <a href={pathResolved('/admin/add/photo')}>add article</a>
     </div>
     {props.article && (
       <dl>

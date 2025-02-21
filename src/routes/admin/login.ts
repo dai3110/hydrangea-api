@@ -10,20 +10,25 @@ export default {
       res.redirect('/admin/index')
     },
     async (req: Request, res: Response) => {
-      const authUser = await auth.currentUser(req, res)
-      res.render('admin/login')
+      res.render('admin/login', {
+        input: {
+          returnpath: req.query['returnpath'] as string
+        }
+      })
     }
   ),
   async post(req: Request, res: Response) {
     const token = await auth.login(req.body.user, req.body.password)
+    const returnPath = req.body.returnpath
     if (token) {
       sessionToken.set(res, token)
-      res.redirect('/admin')
+      res.redirect(returnPath ?? '/admin')
       return
     }
     res.render('admin/login', {
       input: {
-        user: req.body.user
+        user: req.body.user,
+        returnpath: returnPath
       },
       error: 'ログインに失敗しました'
     })

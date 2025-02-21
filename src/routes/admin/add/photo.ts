@@ -4,6 +4,7 @@ import { bucket } from '~/const/env'
 import { role } from '~/const/role'
 import { articleData } from '~/repository/articles'
 import { PageRouting } from '~/types/app'
+import { loginPath } from '~/utils/app'
 import { auth, authRequestHandler } from '~/utils/auth'
 import { handleBucket } from '~/utils/bucket'
 
@@ -12,10 +13,10 @@ export default {
     role.admin.read,
     async (req: Request, res: Response) => {
       const authUser = await auth.currentUser(req, res)
-      res.render('admin/photo/index')
+      res.render('admin/add/photo')
     },
     (req: Request, res: Response) => {
-      res.redirect('/admin/login')
+      res.redirect(loginPath('/admin/add/photo'))
     }
   ),
   post: {
@@ -49,7 +50,7 @@ export default {
 
         const result = await articleData.addArticles(articles)
 
-        res.render('admin/photo/index', {
+        res.render('admin/add/photo', {
           result,
           files
         })

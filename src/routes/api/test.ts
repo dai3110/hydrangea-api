@@ -4,7 +4,6 @@ import { auth, sessionToken } from '~/utils/auth'
 
 export default {
   async get(req: Request, res: Response) {
-    const authUser = await auth.currentUser(req, res)
-    res.send({ authUser })
+    res.send({ image: '1739936140739-0jch80-imgp0959.jpg' })
   }
 } as PageRouting

@@ -14,6 +14,7 @@ const Component = (props: {
   accept?: string
   multiple?: boolean
 }) => {
+
   return (
     <form
       action={props.action}
@@ -22,6 +23,9 @@ const Component = (props: {
       className={csscat(props.className, 'image-form')}
     >
       <input type="file" name={props.name} {...(props.multiple ? { multiple: true } : {})} />
+      <button type="button" data-submit-button>
+        button
+      </button>
       <button type="submit" data-submit-button>
         submit
       </button>
