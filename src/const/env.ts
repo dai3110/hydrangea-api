@@ -1,6 +1,7 @@
 import 'dotenv/config'
 
 export const env = {
+  sessionSecret: process.env['SESSION_SECRET'] as string,
   cognitoRegion: process.env['COGNITO_REGION'] as string,
   cognitoUserpoolId: process.env['COGNITO_USERPOOL_ID'] as string,
   cognitoClientId: process.env['COGNITO_CLIENT_ID'] as string,

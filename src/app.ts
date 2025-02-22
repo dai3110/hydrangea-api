@@ -6,6 +6,14 @@ import { appExt, appPaths, pagesRouteMethods } from '~/const/app'
 import { applyRouteMethodFactory } from '~/utils/app'
 import { createEngine } from '~/utils/engine'
 import { uploadAcceptor } from '~/utils/upload'
+import session from 'express-session'
+import { env } from '~/const/env'
+
+declare module 'express-session' {
+  interface SessionData {
+      user: string | null | undefined
+  }
+}
 
 export const app = express()
 
@@ -16,6 +24,12 @@ app.use(express.static(nodepath.resolve(__dirname, 'public')))
 app.set('views', nodepath.resolve(__dirname, 'views', 'route'))
 app.set('view engine', 'js')
 app.engine('js', createEngine())
+app.use(session({
+  secret: env.sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000 }
+}));
 
 const applier = applyRouteMethodFactory({
   image: uploadAcceptor('image/png', 'image/jpeg').array('image')

@@ -51,12 +51,17 @@ export const auth = {
   async currentUser(req: Request, res: Response) {
     const token = sessionToken.get(req)
     if (!token) {
+      req.session.user = null
+      req.session.save()
       return null
     }
-    return await cognito.getUser({ AccessToken: token }).catch((e) => {
+    const user =  await cognito.getUser({ AccessToken: token }).catch((e) => {
       sessionToken.clear(res)
       return null
     })
+    req.session.user = user?.Username
+    req.session.save()
+    return user
   }
 }
 

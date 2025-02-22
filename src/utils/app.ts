@@ -68,3 +68,7 @@ export const pathResolved = (pathFromAppRoute: string) => {
 export const loginPath = (returnPath: string) => {
   return `${appLoginPath}?returnpath=${encodeURIComponent(returnPath)}`
 }
+
+export const viewPath = (to: string) => {
+  return nodepath.relative(nodepath.resolve(__dirname, '../views/route'), to)
+}

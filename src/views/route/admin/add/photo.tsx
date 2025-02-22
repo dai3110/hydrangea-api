@@ -1,14 +1,11 @@
 import React from 'react'
-import RootLayout from '~/views/components/layout/root'
+import AdminLayout from '~/views/components/layout/admin'
 import ImageForm from '~/views/components/form/image'
 import { bucket } from '~/const/env'
-import { pathResolved } from '~/utils/app'
+import { pathResolved, viewPath } from '~/utils/app'
 
-const Page = (props: { result: boolean, files: string[] }) => (
-  <RootLayout>
-    <div>
-      <a href={pathResolved('/admin/logout')}>logout</a>
-    </div>
+const Page = (props: { user: string | null | undefined, result: boolean, files: string[] }) => (
+  <AdminLayout script="general, admin" user={props.user}>
     <ImageForm
       action={pathResolved('/admin/add/photo')}
       name="image"
@@ -25,7 +22,7 @@ const Page = (props: { result: boolean, files: string[] }) => (
         ))}
       </div>
     )}
-  </RootLayout>
+  </AdminLayout>
 )
 
 export default Page

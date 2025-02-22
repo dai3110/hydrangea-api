@@ -13,7 +13,9 @@ export default {
     role.admin.read,
     async (req: Request, res: Response) => {
       const authUser = await auth.currentUser(req, res)
-      res.render('admin/add/photo')
+      res.render('admin/add/photo', {
+        user: req.session.user
+      })
     },
     (req: Request, res: Response) => {
       res.redirect(loginPath('/admin/add/photo'))
@@ -51,6 +53,7 @@ export default {
         const result = await articleData.addArticles(articles)
 
         res.render('admin/add/photo', {
+          user: req.session.user,
           result,
           files
         })

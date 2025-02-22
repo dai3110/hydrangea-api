@@ -1,9 +1,212 @@
+$basecolor: darken(rgb(210 180 150), 50%);
+
+@mixin grad($bgcolor, $gradcolor, $beginrate) {
+  background-color: $bgcolor;
+  &::before {
+    content: '';
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-image: linear-gradient(to bottom, transparent $beginrate, $gradcolor);
+    background-position: top left;
+  }
+}
+
 html {
+  height: 100dvh;
   font-size: 62.5%;
+  font-family: "Noto Sans JP", serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 body {
-  color: lighten(#000, 10%);
+  position: relative;
+  color: $basecolor;
   font-size: 1.5rem;
-  padding: 1.6rem;
+  padding: 0 1.6rem 1.6rem;
+  z-index: 1;
+}
+
+input {
+  &[type="text"],
+  &[type="password"] {
+    &:-webkit-autofill{
+      box-shadow: 0 0 0 100vmax lighten($basecolor, 80%) inset;
+    }
+  }
+}
+
+[data-icon] {
+  position: relative;
+  margin-left: calc(1em + 0.4rem);
+  &::before {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    width: 0;
+    left: calc(-1em - 0.4rem);
+    position: absolute;
+  }
+}
+
+.admin-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 2.4rem 0.8rem;
+
+  A {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ._inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    min-height: 6.4rem;
+    gap: 1.6rem;
+    padding: 1.6rem;
+    border-radius: 1.6rem;
+    border: 1px solid rgba($basecolor, 0.4);
+    backdrop-filter: blur(0.8rem);
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  ._main {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    gap: 0.8rem 3.2rem;
+  }
+
+  ._logo {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: bold;
+    font-size: 2rem;
+    white-space: nowrap;
+
+    @media screen and (width < 768px) {
+      flex-basis: 100%;
+    }
+  }
+
+  ._navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1;
+
+    A {
+      margin-right: 1.6rem;
+    }
+
+    [data-icon='list']::before {
+      font-size: 1.8rem;
+      content: '\e0ee';
+    }
+
+    [data-icon='article']::before {
+      font-size: 1.8rem;
+      content: '\e3c4';
+    }
+  }
+
+  ._users {
+    flex-basis: min-content;
+
+    & > span {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    [data-icon='user']::before {
+      font-size: 1.8rem;
+      content: '\e7fd';
+    }
+
+    [data-icon='logout']::before {
+      font-size: 1.8rem;
+      content: '\e9ba';
+    }
+  }
+
+  html:has(&) {
+    @include grad(#fff, lighten($basecolor, 60%), 70%);
+  }
+}
+
+.auth-panel {
+  width: 100%;
+  max-width: 36rem;
+
+  & > section {
+    padding: 1.6rem;
+    border-radius: 1.6rem;
+    border: 1px solid rgba($basecolor, 0.4);
+    backdrop-filter: blur(0.8rem);
+    background-color: rgba(255, 255, 255, 0.6);
+    position: relative;
+
+    & > header {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      max-width: 36rem;
+      bottom: 100%;
+      left: 0;
+      font-size: 1.8rem;
+      margin-bottom: 1.6rem;
+      color: lighten($basecolor, 60%);
+      color: #fff;
+      text-shadow: 1px 1px 1px #000;
+      letter-spacing: 1px;
+    }
+  }
+  html:has(&) {
+    @include grad($basecolor, lighten($basecolor, 60%), 0);
+  }
+
+  body:has(&) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100dvh;
+    padding: 1.6rem;
+  }
 }

@@ -1,3 +1,4 @@
+$basecolor: darken(rgb(210 180 150), 50%);
 $line-color: rgb(128, 128, 128);
 
 .image-form {
@@ -5,4 +6,59 @@ $line-color: rgb(128, 128, 128);
   max-width: 48rem;
   display: flex;
   flex-direction: row;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0.8rem auto;
+
+  dl {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 0.2rem;
+    }
+
+    dt {
+      font-size: 1.8rem;
+    }
+
+    input {
+      &[type="text"],
+      &[type="password"]{
+        width: 100%;
+        border: 1px solid $basecolor;
+        border-radius: 0.4rem;
+        font-size: 1.4rem;
+        padding: 0.8rem;
+        letter-spacing: 1px;
+      }
+    }
+  }
+
+  ._message {
+    font-size: 1.4rem;
+    color: rgb(160 60 30);
+    margin-bottom: 0.8rem;
+  }
+
+  button {
+    width: 100%;
+    border: 1px solid $basecolor;
+    border-radius: 0.4rem;
+    color: lighten($basecolor, 80%);
+    background-color: $basecolor;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    padding: 0.8rem;
+  }
 }

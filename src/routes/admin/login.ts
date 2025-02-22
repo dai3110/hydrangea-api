@@ -22,7 +22,7 @@ export default {
     const returnPath = req.body.returnpath
     if (token) {
       sessionToken.set(res, token)
-      res.redirect(returnPath ?? '/admin')
+      res.redirect(returnPath || '/admin')
       return
     }
     res.render('admin/login', {
@@ -30,7 +30,7 @@ export default {
         user: req.body.user,
         returnpath: returnPath
       },
-      error: 'ログインに失敗しました'
+      error: 'Login failed. Enter your login name and password correctly.'
     })
   }
 } as PageRouting

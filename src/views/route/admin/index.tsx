@@ -1,23 +1,16 @@
 import React, { Fragment } from 'react';
 import { bucket } from '~/const/env';
-import { pathResolved } from '~/utils/app';
-import RootLayout from '~/views/components/layout/root';
+import { pathResolved, viewPath } from '~/utils/app';
+import AdminLayout from '~/views/components/layout/admin';
 
 const Page = (props: {
-  user: string
+  user: string | null | undefined
   article: {
     id: number
     image: string
   }[]
 }) => (
-  <RootLayout>
-    <div>
-      <a href={pathResolved('/admin/logout')}>logout</a>
-    </div>
-    <div>{props.user}</div>
-    <div>
-      <a href={pathResolved('/admin/add/photo')}>add article</a>
-    </div>
+  <AdminLayout script="general, admin" user={props.user}>
     {props.article && (
       <dl>
         {props.article.map((d, i) => (
@@ -30,7 +23,7 @@ const Page = (props: {
         ))}
       </dl>
     )}
-  </RootLayout>
+  </AdminLayout>
 );
 
 export default Page;

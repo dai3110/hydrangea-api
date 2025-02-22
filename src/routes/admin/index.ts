@@ -14,7 +14,7 @@ export default {
     async (req: Request, res: Response) => {
   
       res.render('admin/index', {
-        now: Date.now(),
+        user: req.session.user,
         article: await articleData.getArticle()
       })
       

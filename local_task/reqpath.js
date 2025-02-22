@@ -4,6 +4,9 @@ const fs = require('fs')
 const distPath = path.resolve(__dirname, '../dist')
 
 glob.globSync(`${distPath}/**/*.js`).forEach((jsPath) => {
+  if (!fs.statSync(jsPath)?.isFile()) {
+    return
+  }
   const content =
     fs
       .readFileSync(jsPath)
