@@ -52,11 +52,7 @@ export default {
 
         const result = await articleData.addArticles(articles)
 
-        res.render('admin/add/photo', {
-          user: req.session.user,
-          result,
-          files
-        })
+        result ? res.redirect(`/admin/article/${files[0]}`) : res.render('admin/add/photo')
       },
       (req: Request, res: Response) => {
         res.redirect('/admin/login')

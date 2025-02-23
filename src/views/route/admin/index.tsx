@@ -17,7 +17,7 @@ const Page = (props: {
           <Fragment key={i}>
             <dt>{d.id}: {d.image}</dt>
             <dd>
-              <img src={`${bucket.photoURL}/${d.image}`} style={{maxWidth: '240px'}} />
+              <a href={`/admin/article/${d.image}`}><img src={`${bucket.photoURL}/${d.image}`} style={{maxWidth: '240px'}} /></a>
             </dd>
           </Fragment>
         ))}
