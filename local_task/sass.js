@@ -4,7 +4,7 @@ const sass = require('dart-sass')
 const path = require('path')
 
 const sassFilePath = path.resolve(__dirname, '../src/public/assets')
-const distPath = path.resolve(__dirname, '../dist/public/assets')
+const distPath = path.resolve(__dirname, '../dist/public/assets/css')
 glob.globSync(path.resolve(sassFilePath, '*.scss')).forEach((filePath) => {
   const res = sass.renderSync({
     file: filePath

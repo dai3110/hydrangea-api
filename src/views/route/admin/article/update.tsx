@@ -11,7 +11,7 @@ import GeoInput from '~/views/components/form/geo_input'
 import AdminLayout from '~/views/components/layout/admin'
 
 const Page = (props: { user: string | null | undefined, image: string }) => (
-  <AdminLayout script="general, admin" user={props.user}>
+  <AdminLayout script="general, admin, leaflet, map" css="map" user={props.user}>
     <ArticleForm action={pathResolved('/admin/article/')}>
       <ArticleField group="input" is="dl">
         <ArticleItem caption="Title">
@@ -21,7 +21,7 @@ const Page = (props: { user: string | null | undefined, image: string }) => (
           <DateInput name="date" />
         </ArticleItem>
         <ArticleItem caption="Geographic Data" valign="top">
-          <GeoInput />
+          <GeoInput name={{lat: 'lat', lng: 'lng'}} />
         </ArticleItem>
       </ArticleField>
 

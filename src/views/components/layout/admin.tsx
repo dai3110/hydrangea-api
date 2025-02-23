@@ -4,12 +4,13 @@ import RootLayout from '~/views/components/layout/root'
 
 const AdminLayout = (props: {
   script?: string
+  css?: string
   user?: string | null | undefined
   children: React.ReactNode
 }) => {
   const jsName = props.script?.split(',').map((s) => s.trim()) ?? []
   return (
-    <RootLayout script={props.script}>
+    <RootLayout script={props.script} css={props.css}>
       <header className="admin-header">
         <div className="_inner">
           <div className="_main">
