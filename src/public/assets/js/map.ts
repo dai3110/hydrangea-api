@@ -22,8 +22,8 @@ window.addEventListener('load', (_event: Event) => {
       }
 
       const distribute = () => {
-        latInput.value = String(state.latlng?.lat ?? '')
-        lngInput.value = String(state.latlng?.lng ?? '')
+        latInput.setAttribute('value', String(state.latlng?.lat ?? ''))
+        lngInput.setAttribute('value', String(state.latlng?.lng ?? ''))
       }
 
       // express用のtscと併用していて、browser用のtscでのimportが効かないため、

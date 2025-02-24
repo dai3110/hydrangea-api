@@ -19,3 +19,5 @@ export const appExt = {
 } as const
 
 export const htmlDocType = '<!doctype html>'
+
+export const postsPerPage = 5

@@ -16,7 +16,7 @@ export default {
       (pageModule?.get as RequestHandler)?.(req, res, next)
     },
     (req: Request, res: Response) => {
-      res.redirect(loginPath('/admin/'))
+      res.redirect(loginPath('/admin/list/'))
     }
   )
 } as PageRouting

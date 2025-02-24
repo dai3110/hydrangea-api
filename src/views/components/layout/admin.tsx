@@ -20,12 +20,32 @@ const AdminLayout = (props: {
               <span className="material-icons">filter_vintage</span>
             </div>
             <nav className="_navigation">
-              <a href={pathResolved('/admin/')} data-icon="list">
-                Article List
-              </a>
-              <a href={pathResolved('/admin/add/photo')} data-icon="article">
-                Add Article
-              </a>
+              <span className="_group">
+                <span data-icon="list">
+                  Article (
+                </span>
+                <a href={pathResolved('/admin/list/all/')} >
+                  all
+                </a>
+                /
+                <a href={pathResolved('/admin/list/draft/')} >
+                  draft
+                </a>
+                /
+                <a href={pathResolved('/admin/list/private/')}>
+                  private
+                </a>
+                /
+                <a href={pathResolved('/admin/list/public/')}>
+                  public
+                </a>
+                <span>)</span>
+              </span>
+              <span className="_group">
+                <a href={pathResolved('/admin/add/photo')} data-icon="article">
+                  Add Article
+                </a>
+              </span>
             </nav>
           </div>
           <nav className="_users">

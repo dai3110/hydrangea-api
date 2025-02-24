@@ -45,7 +45,7 @@ body {
   & > header {
     margin-left: auto;
     margin-right: auto;
-    max-width: 1024px;
+    max-width: 1200px;
     width: 100%;
   }
 }
@@ -59,7 +59,18 @@ input {
   }
 }
 
-[data-icon] {
+input,
+textarea {
+  &:focus-visible {
+    outline-color: lighten($basecolor, 40%);
+  }
+}
+
+
+a[data-icon] {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
   position: relative;
   margin-left: calc(1em + 0.4rem);
   &::before {
@@ -74,8 +85,26 @@ input {
     word-wrap: normal;
     direction: ltr;
     width: 0;
-    left: calc(-1em - 0.4rem);
+    left: calc(-1em - 0.2rem);
     position: absolute;
+  }
+}
+span[data-icon] {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  &::before {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    margin-right: 0.4rem;
   }
 }
 
@@ -145,9 +174,16 @@ input {
     justify-content: flex-start;
     align-items: center;
     flex: 1;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.6rem;
 
-    A {
-      margin-right: 1.6rem;
+    & > ._group {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
     }
 
     [data-icon='list']::before {

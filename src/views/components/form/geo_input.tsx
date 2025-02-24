@@ -9,7 +9,7 @@ const Component = (props: {
   value?: {
     lat: string
     lng: string
-  }
+  } | null
 }) => {
   return (
     <div className="geo_input">

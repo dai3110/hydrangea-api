@@ -18,9 +18,9 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 }
 
 ul, ol {
-  &[role='list'] {
-    list-style: none;
-  }
+  list-style: none;
+  padding: initial;
+  margin: initial;
 }
 
 body {

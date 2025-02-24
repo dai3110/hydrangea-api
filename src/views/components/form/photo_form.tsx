@@ -16,9 +16,7 @@ const Component = (props: {
       {props.lead && <div className="_lead">{props.lead}</div>}
       <dl>{props.children}</dl>
       <div className="_submit">
-        <div>
-          <button type="submit">Upload Photo</button>
-        </div>
+        <button type="submit">Upload Photo</button>
       </div>
     </form>
   )

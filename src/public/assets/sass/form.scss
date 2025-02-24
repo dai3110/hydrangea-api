@@ -21,6 +21,54 @@ $grid-title-width: 12rem;
     gap: 0.8rem;
     position: relative;
   }
+
+  @media screen and (width < 520px) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    & > dt {
+      white-space: normal;
+      margin-top: 2rem;
+      width: 100%;
+    }
+    & > dd {
+      width: 100%;
+
+    }
+  }
+}
+
+@mixin submit-button() {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  position: sticky;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 2.4rem;
+  z-index: 2;
+
+  button {
+    width: min-content;
+    padding: 1.6rem 2.4rem;
+    border-radius: 1.6rem;
+    font-size: 2rem;
+    color: #fff;
+    border: 1px solid rgba($basecolor, 0.75);
+    backdrop-filter: blur(0.8rem);
+    background-color: rgba(saturate(darken($basecolor, 10%), 50%), 0.5);
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: rgba(desaturate(darken($basecolor, 10%), 50%), 0.5);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  }
 }
 
 .photo-form {
@@ -42,7 +90,6 @@ $grid-title-width: 12rem;
 
     & > dt {
       cursor: pointer;
-      white-space: nowrap;
     }
 
     & > dt,
@@ -93,39 +140,7 @@ $grid-title-width: 12rem;
   }
 
   ._submit {
-    height: 9.6rem;
-
-    & > div {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: center;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      padding: 0 2.4rem 2.4rem;
-      z-index: 2;
-
-      button {
-        width: min-content;
-        padding: 1.6rem 2.4rem;
-        border-radius: 1.6rem;
-        font-size: 2rem;
-        color: #fff;
-        border: 1px solid rgba($basecolor, 0.75);
-        backdrop-filter: blur(0.8rem);
-        background-color: rgba(saturate(darken($basecolor, 10%), 50%), 0.5);
-        white-space: nowrap;
-        cursor: pointer;
-
-        &:disabled {
-          background-color: rgba(desaturate(darken($basecolor, 10%), 50%), 0.5);
-          opacity: 0.6;
-          pointer-events: none;
-        }
-      }
-    }
+    @include submit-button();
   }
 
   ._info {
@@ -189,7 +204,7 @@ $grid-title-width: 12rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 3.2rem;
 
   ._lead {
     display: flex;
@@ -264,39 +279,7 @@ $grid-title-width: 12rem;
   }
 
   ._submit {
-    height: 9.6rem;
-
-    & > div {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-end;
-      justify-content: center;
-      position: fixed;
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      padding: 0 2.4rem 2.4rem;
-      z-index: 2;
-
-      button {
-        width: min-content;
-        padding: 1.6rem 2.4rem;
-        border-radius: 1.6rem;
-        font-size: 2rem;
-        color: #fff;
-        border: 1px solid rgba($basecolor, 0.75);
-        backdrop-filter: blur(0.8rem);
-        background-color: rgba(saturate(darken($basecolor, 10%), 50%), 0.5);
-        white-space: nowrap;
-        cursor: pointer;
-
-        &:disabled {
-          background-color: rgba(desaturate(darken($basecolor, 10%), 50%), 0.5);
-          opacity: 0.6;
-          pointer-events: none;
-        }
-      }
-    }
+    @include submit-button();
   }
 
   .geo_input {
@@ -421,6 +404,8 @@ $grid-title-width: 12rem;
   border-style: dashed;
 
   [data-map] {
+    position: relative;
+    z-index: 1;
     flex: 1;
   }
 }
@@ -435,7 +420,7 @@ $grid-title-width: 12rem;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: lighten($basecolor, 75%);
+  background-color: grayscale(lighten($basecolor, 75%));
   border: 1px solid lighten($basecolor, 60%);
 
   & > dt {
@@ -476,14 +461,13 @@ $grid-title-width: 12rem;
     }
 
     & > dd {
-      height: auto;
-      width: auto;
       margin-top: 0;
-      max-width: 24rem;
-      max-height: 24rem;
+      width: 24rem;
+      height: 24rem;
       padding: 1.6rem;
       background-color: lighten($basecolor, 75%);
       border: 1px solid lighten($basecolor, 60%);
+      justify-content: center;
     }
   }
 }

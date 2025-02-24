@@ -2,11 +2,11 @@ import React from 'react'
 
 const Component = (props: {
   name: string
-  value?: string
+  value?: string | null
 }) => {
   return (
     <>
-      <textarea name={props.name} defaultValue={props.value}></textarea>
+      <textarea name={props.name} defaultValue={props.value ?? undefined}></textarea>
     </>
   )
 }

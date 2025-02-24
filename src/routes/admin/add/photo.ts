@@ -50,12 +50,12 @@ export default {
           [] as { image: string }[]
         )
 
-        const result = await articleData.addArticles(articles)
+        const result = await articleData.addArticle(articles[0])
 
-        result ? res.redirect(`/admin/article/${files[0]}`) : res.render('admin/add/photo')
+        result ? res.redirect(`/admin/article/${result.id}`) : res.render('admin/add/photo')
       },
       (req: Request, res: Response) => {
-        res.redirect('/admin/login')
+        res.redirect(loginPath('/admin/add/photo'))
       }
     )
   }
