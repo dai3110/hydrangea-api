@@ -33,7 +33,10 @@ window.addEventListener('load', (_event: Event) => {
           Number(monthInput.value) - 1,
           Number(dateInput.value)
         )
-        targetElement.setAttribute('value', `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`)
+        targetElement.setAttribute(
+          'value',
+          `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+        )
       }
       yearInput.addEventListener('change', distribute)
       monthInput.addEventListener('change', distribute)

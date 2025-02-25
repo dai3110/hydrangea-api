@@ -1,5 +1,3 @@
-import { RoleDefine } from "~/types/auth"
-
 const keyPrefix = 'custom:'
 
 export const role = {

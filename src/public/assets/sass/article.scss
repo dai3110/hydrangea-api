@@ -59,7 +59,6 @@ $basecolor: darken(rgb(210 180 150), 50%);
   }
 }
 
-
 .article-list {
   width: 100%;
   max-width: 960px;
@@ -77,7 +76,7 @@ $basecolor: darken(rgb(210 180 150), 50%);
   margin-top: 1.6rem;
   background-color: rgba(#fff, 0.2);
   backdrop-filter: blur(4px);
-  
+
   ._image {
     display: flex;
     flex-direction: row;
@@ -102,7 +101,6 @@ $basecolor: darken(rgb(210 180 150), 50%);
     justify-content: center;
     gap: 1.6rem;
   }
-
 
   @media screen and (width < 480px) {
     flex-direction: column;
@@ -235,8 +233,8 @@ $basecolor: darken(rgb(210 180 150), 50%);
   height: 3.2rem;
   font-size: 1.8rem;
   flex-basis: min-content;
-  
-  &[data-status-badge="draft"] {
+
+  &[data-status-badge='draft'] {
     border-color: grayscale(lighten($basecolor, 20%));
     color: grayscale($basecolor);
     background-color: #eee;
@@ -246,7 +244,7 @@ $basecolor: darken(rgb(210 180 150), 50%);
     }
   }
 
-  &[data-status-badge="private"] {
+  &[data-status-badge='private'] {
     border-color: lighten($basecolor, 20%);
     color: lighten($basecolor, 20%);
     background-color: #fff;
@@ -256,7 +254,7 @@ $basecolor: darken(rgb(210 180 150), 50%);
     }
   }
 
-  &[data-status-badge="public"] {
+  &[data-status-badge='public'] {
     border-color: lighten($basecolor, 20%);
     color: #fff;
     background-color: lighten($basecolor, 20%);

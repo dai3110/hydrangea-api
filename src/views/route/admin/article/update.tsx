@@ -1,13 +1,13 @@
 import React from 'react'
 import { pathResolved } from '~/utils/app'
-import ArticleForm from '~/views/components/form/article_form'
 import ArticleField from '~/views/components/form/article_field'
+import ArticleForm from '~/views/components/form/article_form'
 import ArticleItem from '~/views/components/form/article_item'
-import TextInput from '~/views/components/form/text_input'
-import MultipleTextInput from '~/views/components/form/multiple_text_input'
 import DateInput from '~/views/components/form/date_input'
-import ImagePreview from '~/views/components/form/image_preview'
 import GeoInput from '~/views/components/form/geo_input'
+import ImagePreview from '~/views/components/form/image_preview'
+import MultipleTextInput from '~/views/components/form/multiple_text_input'
+import TextInput from '~/views/components/form/text_input'
 import AdminLayout from '~/views/components/layout/admin'
 
 const Page = (props: {
@@ -23,7 +23,11 @@ const Page = (props: {
   }
 }) => (
   <AdminLayout script="admin, date, leaflet, map" css="map" user={props.user}>
-    <ArticleForm action={pathResolved(`/admin/article/${props.article.id}`)} update={!!props.article.title} lead="Edit the article and submit it when finished">
+    <ArticleForm
+      action={pathResolved(`/admin/article/${props.article.id}`)}
+      update={!!props.article.title}
+      lead="Edit the article and submit it when finished"
+    >
       <ArticleField group="input" is="dl">
         <ArticleItem caption="Title">
           <TextInput name="title" value={props.article.title} />

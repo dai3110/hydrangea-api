@@ -1,9 +1,6 @@
 import React from 'react'
 
-const Component = (props: {
-  name: string
-  value?: string | null
-}) => {
+const Component = (props: { name: string; value?: string | null }) => {
   return (
     <>
       <textarea name={props.name} defaultValue={props.value ?? undefined}></textarea>

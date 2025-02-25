@@ -2,21 +2,18 @@ import { postsPerPage } from '~/const/app'
 import { prisma } from '~/utils/database'
 
 export const articleData = {
-  async addArticle(
-    article: {
-      image: string
-      date?: Date
-      title?: string
-      explain?: string
-      lat?: number
-      lng?: number
-    }
-  ) {
+  async addArticle(article: {
+    image: string
+    date?: Date
+    title?: string
+    explain?: string
+    lat?: number
+    lng?: number
+  }) {
     const [posts] = await prisma.$transaction([
-      prisma.article
-        .create({
-          data: article
-        }),
+      prisma.article.create({
+        data: article
+      })
       // prisma.article
       //   .findUnique({
       //     where: { image:  }
@@ -60,7 +57,11 @@ export const articleData = {
   async getArticles(cond?: { page?: number; draft?: boolean; pub?: boolean }) {
     const query = {
       where: {
-        ...(cond?.draft === true ? { title: null } : cond?.draft === false ? { title: { not: null } } : {}),
+        ...(cond?.draft === true
+          ? { title: null }
+          : cond?.draft === false
+            ? { title: { not: null } }
+            : {}),
         ...(cond?.pub === undefined ? {} : { public: cond?.pub })
       },
       ...(cond?.page ? { take: postsPerPage, skip: (cond?.page - 1) * postsPerPage } : {}),
@@ -73,8 +74,16 @@ export const articleData = {
       prisma.article.findMany(query),
       prisma.article.count({ where: query.where })
     ])
-    
-    return {posts, count}
-    // return await prisma.article.findMany({})
+
+    return { posts, count }
+  },
+  async removeArticle(id: number) {
+    return await prisma.article
+      .delete({
+        where: { id }
+      })
+      .catch((e) => {
+        return null
+      })
   }
 }

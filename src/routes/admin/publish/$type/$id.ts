@@ -1,20 +1,24 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { role } from '~/const/role'
 import { articleData } from '~/repository/articles'
-import { PageRouting, RequestHandler } from '~/types/app'
+import { PageRouting } from '~/types/app'
 import { loginPath } from '~/utils/app'
 import { authRequestHandler } from '~/utils/auth'
 
-const types = ['open', 'close'] as const
+const types = ['open', 'close', 'delete'] as const
 
 export default {
   get: authRequestHandler(
     role.admin.read,
     async (req: Request, res: Response) => {
       const id = Number(req.params['id'] ?? 0)
-      const type = req.params['type'] as (typeof types)[number] 
+      const type = req.params['type'] as (typeof types)[number]
 
       const article = await articleData.getArticle(isNaN(id) ? 0 : id)
+      if (type === 'delete' && !article) {
+        res.redirect('/admin/list/all/')
+        return
+      }
       if (type === 'open' && article?.public) {
         res.redirect('/admin/list/public/')
         return
@@ -37,7 +41,14 @@ export default {
     role.admin.read,
     async (req: Request, res: Response) => {
       const id = Number(req.params['id'] ?? 0)
-      const type = req.params['type'] as (typeof types)[number] 
+      const type = req.params['type'] as (typeof types)[number]
+
+      if (type === 'delete') {
+        await articleData.removeArticle(id)
+        res.redirect(`/admin/list/all/`)
+        return
+      }
+
       const result = await articleData.updateArticle({
         id,
         public: type === 'open'

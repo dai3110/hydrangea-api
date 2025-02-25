@@ -1,7 +1,5 @@
-import { app } from '~/app';
+import { app } from '~/app'
 
-const port = 3110;
+const port = 3110
 
-app.listen(port, () =>
-  console.log(`[${new Date().toISOString()}] start server[${port}]`)
-);
+app.listen(port, () => console.log(`[${new Date().toISOString()}] start server[${port}]`))

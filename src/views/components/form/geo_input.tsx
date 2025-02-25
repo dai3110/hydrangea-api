@@ -1,5 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useRef, useState } from 'react'
-import { bucket } from '~/const/env'
+import React from 'react'
 
 const Component = (props: {
   name: {

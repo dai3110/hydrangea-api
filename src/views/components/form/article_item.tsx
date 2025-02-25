@@ -12,12 +12,8 @@ const Component = (props: {
   }
   return (
     <>
-      <dt style={{ alignSelf: alignMapping[props.valign ?? 'middle'] }}>
-        {props.caption}
-      </dt>
-      <dd>
-        {props.children}
-      </dd>
+      <dt style={{ alignSelf: alignMapping[props.valign ?? 'middle'] }}>{props.caption}</dt>
+      <dd>{props.children}</dd>
     </>
   )
 }

@@ -21,24 +21,11 @@ const AdminLayout = (props: {
             </div>
             <nav className="_navigation">
               <span className="_group">
-                <span data-icon="list">
-                  Article (
-                </span>
-                <a href={pathResolved('/admin/list/all/')} >
-                  all
-                </a>
-                /
-                <a href={pathResolved('/admin/list/draft/')} >
-                  draft
-                </a>
-                /
-                <a href={pathResolved('/admin/list/private/')}>
-                  private
-                </a>
-                /
-                <a href={pathResolved('/admin/list/public/')}>
-                  public
-                </a>
+                <span data-icon="list">Article (</span>
+                <a href={pathResolved('/admin/list/all/')}>all</a>/
+                <a href={pathResolved('/admin/list/draft/')}>draft</a>/
+                <a href={pathResolved('/admin/list/private/')}>private</a>/
+                <a href={pathResolved('/admin/list/public/')}>public</a>
                 <span>)</span>
               </span>
               <span className="_group">

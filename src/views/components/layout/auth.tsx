@@ -1,5 +1,4 @@
 import React from 'react'
-import { pathResolved } from '~/utils/app'
 import RootLayout from '~/views/components/layout/root'
 
 const AuthLayout = (props: {

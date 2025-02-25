@@ -1,5 +1,4 @@
-import { MouseEvent } from 'react';
-import Leaflet, { marker } from 'leaflet'
+import Leaflet from 'leaflet'
 
 window.addEventListener('load', (_event: Event) => {
   const tasks: {
@@ -7,8 +6,12 @@ window.addEventListener('load', (_event: Event) => {
   } = {
     '[data-map]': (element: HTMLElement) => {
       const [latName, lngName] = (element.dataset['map'] ?? '').split(',')
-      const latInput = element.parentNode?.querySelector(`input[name="${latName}"]`) as HTMLInputElement
-      const lngInput = element.parentNode?.querySelector(`input[name="${lngName}"]`) as HTMLInputElement
+      const latInput = element.parentNode?.querySelector(
+        `input[name="${latName}"]`
+      ) as HTMLInputElement
+      const lngInput = element.parentNode?.querySelector(
+        `input[name="${lngName}"]`
+      ) as HTMLInputElement
 
       if (!latInput || !lngInput) {
         return
@@ -30,7 +33,7 @@ window.addEventListener('load', (_event: Event) => {
       // window.Lを直接使用して、Leafletの型をここに当てはめて使用する
       const leaflet = (window as any).L as typeof Leaflet
       const map = leaflet.map(element, {
-        center: [ Number(latInput.value || 36), Number(lngInput.value || 140)],
+        center: [Number(latInput.value || 36), Number(lngInput.value || 140)],
         zoom: 8
       })
 
@@ -40,7 +43,7 @@ window.addEventListener('load', (_event: Event) => {
           state.latlng.lat = null
           state.latlng.lng = null
         } else {
-          state.marker = leaflet.marker({lat, lng}).addTo(map)
+          state.marker = leaflet.marker({ lat, lng }).addTo(map)
           state.latlng.lat = lat
           state.latlng.lng = lng
         }
@@ -56,7 +59,7 @@ window.addEventListener('load', (_event: Event) => {
       if (latInput.value && lngInput.value) {
         select(Number(latInput.value), Number(lngInput.value))
       }
-      
+
       map.on('click', (event) => {
         state.marker && map.removeLayer(state.marker)
         select(event.latlng.lat, event.latlng.lng)

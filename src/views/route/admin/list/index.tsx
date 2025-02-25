@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react'
-import { bucket } from '~/const/env'
-import { pathResolved, viewPath } from '~/utils/app'
-import AdminLayout from '~/views/components/layout/admin'
-import ArticleCard from '~/views/components/article/card'
-import ArticlePagenation from '~/views/components/article/pagenation'
+import React from 'react'
 import { postsPerPage } from '~/const/app'
-import { extractText } from '~/utils/html'
+import ArticleCard from '~/views/components/article/card'
+import ArticleControl from '~/views/components/article/control_button'
+import ArticlePagenation from '~/views/components/article/pagenation'
+import AdminLayout from '~/views/components/layout/admin'
 
 const types = ['all', 'draft', 'private', 'public'] as const
 
@@ -42,28 +40,49 @@ const Page = (props: {
       <ul className="article-list">
         {props.articles.posts?.map((post, i) => {
           const status = !post.title ? 'draft' : !post.public ? 'private' : 'public'
-          const content = extractText(post.explain ?? '')
-          
+          const content = post.explain ?? ''
+
           return (
-          <ArticleCard key={i} is="li" article={post}>
-            <div data-status-badge={status}></div>
-            {status === 'draft' && <div className="post-info">This article has no content. Click the edit button to complete the article.</div>}
-            {status !== 'draft' && (
-              <div className="post-info">
-                <ul className="_contents">
-                  <li><strong>{ post.title }</strong></li>
-                  <li>{ content.length > 256 ? `${content.slice(0, 256)}...` : content }</li>
-                </ul>
+            <ArticleCard key={i} is="li" article={post}>
+              <div data-status-badge={status}></div>
+              {status === 'draft' && (
+                <div className="post-info">
+                  This article has no content. Click the edit button to complete the article.
+                </div>
+              )}
+              {status !== 'draft' && (
+                <div className="post-info">
+                  <ul className="_contents">
+                    <li>
+                      <strong>{post.title}</strong>
+                    </li>
+                    <li>{content.length > 256 ? `${content.slice(0, 256)}...` : content}</li>
+                  </ul>
+                </div>
+              )}
+
+              <div className="post-control">
+                {status === 'draft' && (
+                  <>
+                    <ArticleControl id={post.id} type="delete" />
+                    <ArticleControl id={post.id} type="edit" />
+                  </>
+                )}
+                {status === 'private' && (
+                  <>
+                    <ArticleControl id={post.id} type="delete" />
+                    <ArticleControl id={post.id} type="open" />
+                  </>
+                )}
+                {status === 'public' && (
+                  <>
+                    <ArticleControl id={post.id} type="close" />
+                  </>
+                )}
               </div>
-            )}
-            
-            <div className="post-control">
-              {status === 'draft' && <a href={`/admin/article/${post.id}`} className="material-icons" title="edit">edit_document</a>}
-              {status === 'private' && <a href={`/admin/publish/open/${post.id}`} className="material-icons" title="publish">publish</a>}
-              {status === 'public' && <a href={`/admin/publish/close/${post.id}`} className="material-icons" title="change to private">lock</a>}
-            </div>
-          </ArticleCard>
-        )})}
+            </ArticleCard>
+          )
+        })}
       </ul>
       <div className="article-control">
         <div>

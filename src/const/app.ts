@@ -8,14 +8,14 @@ const appRoot = nodepath.resolve(__dirname, '../')
 export const appPaths = {
   app: appRoot,
   routes: nodepath.resolve(appRoot, 'routes'),
-  views: nodepath.resolve(appRoot, 'views'),
+  views: nodepath.resolve(appRoot, 'views')
 } as const
 
 export const requestAppRootPath = '/'
 export const appLoginPath = '/admin/login'
 
 export const appExt = {
-  express: '.js',
+  express: '.js'
 } as const
 
 export const htmlDocType = '<!doctype html>'

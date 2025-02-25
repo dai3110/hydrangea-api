@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { pagesRouteMethods } from '~/const/app';
+import { pagesRouteMethods } from '~/const/app'
 
 export type PageRouteMethodType = (typeof pagesRouteMethods)[number]
 
@@ -15,4 +15,3 @@ export type RequestHandlerDefine = {
 export type PageRouting = {
   [method in PageRouteMethodType]?: RequestHandler | RequestHandlerDefine
 }
-

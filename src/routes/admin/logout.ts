@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { PageRouting } from '~/types/app'
-import { auth, sessionToken } from '~/utils/auth'
+import { auth } from '~/utils/auth'
 
 export default {
   async get(req: Request, res: Response) {

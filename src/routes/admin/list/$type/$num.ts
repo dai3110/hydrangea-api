@@ -1,13 +1,10 @@
-import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 import { postsPerPage } from '~/const/app'
-import { dbtable } from '~/const/env'
 import { role } from '~/const/role'
 import { articleData } from '~/repository/articles'
 import { PageRouting } from '~/types/app'
 import { loginPath } from '~/utils/app'
-import { auth, authRequestHandler } from '~/utils/auth'
-import { dynamodb } from '~/utils/database'
+import { authRequestHandler } from '~/utils/auth'
 
 export default {
   get: authRequestHandler(
@@ -32,17 +29,18 @@ export default {
         res.redirect(`/admin/list/${type}/1`)
         return
       }
-  
+
       res.render('admin/list/index', {
         user: req.session.user,
         articles,
         type,
         page: num
       })
-      
     },
     (req: Request, res: Response) => {
-      res.redirect(loginPath(`/admin/list/${req.params['type'] ?? 'all'}/${req.params['num'] ?? 1}`))
+      res.redirect(
+        loginPath(`/admin/list/${req.params['type'] ?? 'all'}/${req.params['num'] ?? 1}`)
+      )
     }
   )
 } as PageRouting

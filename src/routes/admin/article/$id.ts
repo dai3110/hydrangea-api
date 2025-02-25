@@ -1,12 +1,9 @@
 import { Request, Response } from 'express'
-import fs from 'fs'
-import { bucket } from '~/const/env'
 import { role } from '~/const/role'
 import { articleData } from '~/repository/articles'
 import { PageRouting } from '~/types/app'
 import { loginPath } from '~/utils/app'
 import { auth, authRequestHandler } from '~/utils/auth'
-import { handleBucket } from '~/utils/bucket'
 
 export default {
   get: authRequestHandler(

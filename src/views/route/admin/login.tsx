@@ -1,5 +1,5 @@
 import React from 'react'
-import { pathResolved, viewPath } from '~/utils/app'
+import { pathResolved } from '~/utils/app'
 import AuthLayout from '~/views/components/layout/auth'
 
 const Page = (props: {

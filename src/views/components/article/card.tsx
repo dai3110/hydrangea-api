@@ -6,28 +6,21 @@ const Component = (props: {
   article: {
     id: number
     image?: string
-    // date?: Date
-    // title?: string
-    // explain?: string
-    // lat?: number
-    // lng?: number
   }
   children: React.ReactNode
 }) => {
   return React.createElement(
-    props.is ?? 'div', {
+    props.is ?? 'div',
+    {
       className: 'article-card'
     },
     <>
       <div className="_image">
         <img src={`${bucket.photoURL}/${props.article.image}`} />
       </div>
-      <div className="_info">
-        {props.children}
-      </div>
+      <div className="_info">{props.children}</div>
     </>
   )
-  
 }
 
 export default Component

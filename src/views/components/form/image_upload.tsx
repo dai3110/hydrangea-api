@@ -1,10 +1,6 @@
-import React, { ChangeEvent, MouseEvent, useRef, useState } from 'react'
+import React from 'react'
 
-const Component = (props: {
-  name: string
-  lead?: string
-  multiple?: boolean
-}) => {
+const Component = (props: { name: string; lead?: string; multiple?: boolean }) => {
   return (
     <>
       <dt>{props.lead}</dt>

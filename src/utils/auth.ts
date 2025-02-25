@@ -1,10 +1,9 @@
 import { CognitoIdentityProvider } from '@aws-sdk/client-cognito-identity-provider'
+import { createHmac } from 'crypto'
 import { NextFunction, Request, Response } from 'express'
 import { env } from '~/const/env'
-import { createHmac } from 'crypto'
-import { role } from '~/const/role'
-import { RoleDefine } from '~/types/auth'
 import { RequestHandler } from '~/types/app'
+import { RoleDefine } from '~/types/auth'
 
 const cognito = new CognitoIdentityProvider({ region: env.cognitoRegion })
 const clientId = env.cognitoClientId
@@ -55,7 +54,7 @@ export const auth = {
       req.session.save()
       return null
     }
-    const user =  await cognito.getUser({ AccessToken: token }).catch((e) => {
+    const user = await cognito.getUser({ AccessToken: token }).catch((e) => {
       sessionToken.clear(res)
       return null
     })

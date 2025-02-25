@@ -40,7 +40,7 @@ export default {
                 bucket.photo
               )
               .then((res) => true)
-              .catch((e) => (console.log(e),false))
+              .catch((e) => (console.log(e), false))
             fs.unlink(file.path, () => null)
             return result ? file.filename : null
           })
