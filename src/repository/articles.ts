@@ -14,10 +14,6 @@ export const articleData = {
       prisma.article.create({
         data: article
       })
-      // prisma.article
-      //   .findUnique({
-      //     where: { image:  }
-      //   })
     ])
     return posts
   },

@@ -72,11 +72,13 @@ const Page = (props: {
                   <>
                     <ArticleControl id={post.id} type="delete" />
                     <ArticleControl id={post.id} type="open" />
+                    <ArticleControl id={post.id} type="edit" />
                   </>
                 )}
                 {status === 'public' && (
                   <>
                     <ArticleControl id={post.id} type="close" />
+                    <ArticleControl id={post.id} type="edit" />
                   </>
                 )}
               </div>

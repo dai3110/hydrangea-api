@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 import { role } from '~/const/role'
+import { appData } from '~/repository/app'
 import { articleData } from '~/repository/articles'
 import { PageRouting } from '~/types/app'
 import { loginPath } from '~/utils/app'
-import { authRequestHandler } from '~/utils/auth'
+import { auth, authRequestHandler } from '~/utils/auth'
 
 const types = ['open', 'close', 'delete'] as const
 
@@ -43,22 +44,34 @@ export default {
       const id = Number(req.params['id'] ?? 0)
       const type = req.params['type'] as (typeof types)[number]
 
+      const user = await auth.currentUser(req, res)
+      const userAttr =
+        user?.UserAttributes?.find((attr) => attr.Name === role.admin.write.key)?.Value ?? -1
+
       if (type === 'delete') {
-        await articleData.removeArticle(id)
+        if (Number(userAttr) > 1) {
+          await articleData.removeArticle(id)
+        }
         res.redirect(`/admin/list/all/`)
         return
       }
 
-      const result = await articleData.updateArticle({
-        id,
-        public: type === 'open'
-      })
+      if (Number(userAttr) > 1) {
+        const result = await articleData.updateArticle({
+          id,
+          public: type === 'open'
+        })
 
-      if (result) {
-        res.redirect(`/admin/list/${type === 'open' ? 'public' : 'private'}/`)
-        return
+        appData.incrementPublishVersion()
+
+        if (result) {
+          res.redirect(`/admin/list/${type === 'open' ? 'public' : 'private'}/`)
+          return
+        }
+        res.redirect(`/admin/list/${type === 'open' ? 'private' : 'public'}/`)
+      } else {
+        res.redirect(`/admin/list/${type === 'open' ? 'private' : 'public'}/`)
       }
-      res.redirect(`/admin/list/${type === 'open' ? 'private' : 'public'}/`)
     },
     (req: Request, res: Response) => {
       res.redirect(loginPath(`/admin/publish/${req.params['type']}/${req.params['id'] ?? 0}`))

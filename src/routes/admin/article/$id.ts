@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { role } from '~/const/role'
+import { appData } from '~/repository/app'
 import { articleData } from '~/repository/articles'
 import { PageRouting } from '~/types/app'
 import { loginPath } from '~/utils/app'
@@ -37,17 +38,25 @@ export default {
         lat: Number(req.body.lat),
         lng: Number(req.body.lng)
       }
-      const result = await articleData.updateArticle(updateContent)
 
-      if (result) {
+      const user = await auth.currentUser(req, res)
+      const userAttr = user?.UserAttributes?.find((attr) => attr.Name === role.admin.write.key)?.Value ?? -1
+      if (Number(userAttr) > 1) {
+        const result = await articleData.updateArticle(updateContent)
+        
+        if (result) {
+          appData.incrementPublishVersion()
+          res.redirect('/admin/index')
+          return
+        }
+
+        res.render('admin/article/update', {
+          user: req.session.user,
+          article: updateContent
+        })
+      } else {
         res.redirect('/admin/index')
-        return
       }
-
-      res.render('admin/article/update', {
-        user: req.session.user,
-        article: updateContent
-      })
     },
     (req: Request, res: Response) => {
       res.redirect(loginPath(`/admin/article/${req.params['id']}`))

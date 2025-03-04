@@ -28,31 +28,36 @@ export default {
       async (req: Request, res: Response) => {
         // lambda-apigatewayへの負荷を考慮して
         // 実際にはview側の入力はmultipleではなくする
-        const files = await Promise.all(
-          (req.files as Express.Multer.File[]).map(async (file) => {
-            const result = await handleBucket
-              .push(
-                {
-                  name: file.filename,
-                  buffer: await fs.promises.readFile(file.path),
-                  mime: file.mimetype
-                },
-                bucket.photo
-              )
-              .then((res) => true)
-              .catch((e) => (console.log(e), false))
-            fs.unlink(file.path, () => null)
-            return result ? file.filename : null
-          })
-        )
-        const articles = files.reduce(
-          (acc, file) => (file && acc.push({ image: file }), acc),
-          [] as { image: string }[]
-        )
-
-        const result = await articleData.addArticle(articles[0])
-
-        result ? res.redirect(`/admin/article/${result.id}`) : res.render('admin/add/photo')
+        const user = await auth.currentUser(req, res)
+        const userAttr = user?.UserAttributes?.find((attr) => attr.Name === role.admin.write.key)?.Value ?? -1
+        if (Number(userAttr) > 1) {
+          const files = await Promise.all(
+            (req.files as Express.Multer.File[]).map(async (file) => {
+              const result = await handleBucket
+                .push(
+                  {
+                    name: file.filename,
+                    buffer: await fs.promises.readFile(file.path),
+                    mime: file.mimetype
+                  },
+                  bucket.photo
+                )
+                .then((res) => true)
+                .catch((e) => (console.log(e), false))
+              fs.unlink(file.path, () => null)
+              return result ? file.filename : null
+            })
+          )
+          const articles = files.reduce(
+            (acc, file) => (file && acc.push({ image: file }), acc),
+            [] as { image: string }[]
+          )
+       
+          const result = await articleData.addArticle(articles[0])
+          result ? res.redirect(`/admin/article/${result.id}`) : res.render('admin/add/photo')
+        } else {
+          res.redirect(`/admin/list/draft`)
+        }
       },
       (req: Request, res: Response) => {
         res.redirect(loginPath('/admin/add/photo'))
