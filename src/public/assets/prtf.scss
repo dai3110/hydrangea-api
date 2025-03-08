@@ -1,0 +1,168 @@
+@use 'sass/reset';
+
+.prtf {
+  padding: 16px 0;
+  line-height: 1.8;
+
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 18px;
+    margin-top: 32px;
+  }
+
+  h3 {
+    font-size: 16px;
+    margin-top: 24px;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
+  &_dltable {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 1px;
+    background-color: #ccc;
+    font-size: 14px;
+    margin-top: 12px;
+
+    @media screen and (width < 520px) {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: 1px solid #ccc;
+    }
+
+    & > div {
+      display: table-row;
+
+      @media screen and (width < 520px) {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      & > dt {
+        font-family: monospace;
+        background-color: #eee;
+      }
+      & > dd {
+        background-color: #fff;
+      }
+
+      & > dt,
+      & > dd {
+        padding: 8px;
+        width: min-content;
+        display: table-cell;
+        vertical-align: top;
+
+        @media screen and (width < 520px) {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  &_sitecard {
+    display: grid;
+    grid-template-columns: minmax(150px, 2fr) 5fr;
+    gap: 8px 16px;
+    margin-top: 12px;
+    background-color: #eee;
+    border-radius: 16px;
+    padding: 16px;
+    max-width: 840px;
+
+
+    @media screen and (width < 520px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    dt {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+
+      a {
+        color: inherit;
+      }
+    }
+
+    &__image {
+      grid-column: 1;
+      grid-row: 2;
+      padding: 16px 0;
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 12px;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    &__explain {
+      grid-column: 2;
+      grid-row: 2;
+
+      ul {
+        font-size: 14px;
+        list-style: circle;
+        padding-left: 20px;
+        margin-top: 12px;
+      }
+
+      a {
+        color: inherit;
+        word-break: break-all;
+      }
+
+      dl {
+        display: inline-grid;
+        grid-template-columns: min-content min-content;
+        gap: 8px;
+        margin-top: 12px;
+
+        @media screen and (width < 520px) {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+        }
+
+        dt {
+          grid-column: 1;
+          grid-row: auto;
+          text-align: right;
+
+          @media screen and (width < 520px) {
+            background-color: #ccc;
+            padding: 0 8px;
+            text-align: left;
+          }
+        }
+        dd {
+          grid-column: 2;
+          grid-row: auto;
+          background-color: #ddd;
+          padding: 0 8px;
+        }
+      }
+
+    }
+
+  }
+
+}
